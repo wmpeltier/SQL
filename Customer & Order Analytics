@@ -50,4 +50,4 @@ AND Feb.orderID<> 'Order ID';
 SELECT distinct product, SUM(quantity)
 FROM FebSales
 WHERE location like '%Los Angeles%'
-GROUP BY product
+GROUP BY product;
