@@ -1,0 +1,63 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+#1. What was the popularity of songs that were performed with another artist?
+SELECT artist_name, track_name, popularity
+FROM Spotifydata 
+WHERE track_name like '%feat%'
+OR track_name like '%with%'
+ORDER BY popularity DESC;
+
+#2. What were the 10 songs with the highest danceability rating? 
+SELECT artist_name, track_name, danceability
+FROM Spotifydata
+ORDER BY danceability DESC
+LIMIT 10;
+
+#3. Which songs were not in a 4 time signature?
+SELECT artist_name, track_name, time_signature
+FROM Spotifydata
+WHERE time_signature <> 4;
+
+#4. What was the average popularity of songs that had a tempo below 130?
+SELECT AVG(popularity)
+FROM Spotifydata
+WHERE tempo < 130;
+
+#5. What was the average popularity of songs that had a tempo 130 or above?
+SELECT AVG(popularity)
+FROM Spotifydata
+WHERE tempo >= 130;
+
+#6. Which songs had an instrumentalness rating, and which songs that had an instrumentalness rating were the most popular? 
+SELECT artist_name, track_name, popularity
+FROM Spotifydata
+WHERE instrumentalness <> 0
+ORDER BY popularity DESC;
